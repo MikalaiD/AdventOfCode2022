@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="928b9629-0dcc-44bb-82ab-59403b06adb1" name="Changes" comment="initial">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Day03RucksackReorganization.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/03_input" afterDir="false" />
+    <list default="true" id="928b9629-0dcc-44bb-82ab-59403b06adb1" name="Changes" comment="day 3">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Day04CampCleanup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/04_input" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -59,7 +59,7 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Day03RucksackReorganization">
+  <component name="RunManager" selected="Application.Day04CampCleanup">
     <configuration name="Day01CalorieCount" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Day01CalorieCount" />
       <module name="Advent2022.main" />
@@ -99,8 +99,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Day04CampCleanup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Day04CampCleanup" />
+      <module name="Advent2022.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Day04CampCleanup" />
         <item itemvalue="Application.Day03RucksackReorganization" />
         <item itemvalue="Application.Day02RockPaperScissors" />
         <item itemvalue="Application.Day01CalorieCount" />
@@ -123,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670064074765</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="day 3">
+      <created>1670069540520</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1670069540520</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,6 +160,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial" />
+    <MESSAGE value="day 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="day 3" />
   </component>
 </project>

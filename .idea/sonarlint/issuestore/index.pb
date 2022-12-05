@@ -16,3 +16,5 @@ X
 0src/main/java/org/example/Day01CalorieCount.java,d\f\dfc8983dbf40ed9706cfe069174ce9222e592859
 S
 #src/main/java/org/example/Main.java,0\b\0ba1b9c7a4878802f938e331cc2d8a042087ec6b
+e
+5src/main/java/org/example/Day02RockPaperScissors.java,c\d\cdf84bd8d5d94923e22aa1db07dba2c486295e56
