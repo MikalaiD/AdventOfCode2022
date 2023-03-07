@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -24,34 +25,46 @@ public class Day11MonkeyInTheMiddle {
 
     try (BufferedReader reader = Files.newBufferedReader(path)) {
       long n = 1;
-      String line =reader.readLine();
+      String line = reader.readLine();
       List<String> monkeyBundle = new LinkedList<>();
       do {
-        if(n%7!=0){
+        if (n % 7 != 0) {
           monkeyBundle.add(line);
           n++;
         } else {
           monkeys.add(new Monkey(monkeyBundle));
-          monkeyBundle=new LinkedList<>();
-          n=1;
+          monkeyBundle = new LinkedList<>();
+          n = 1;
         }
-      } while ((line = reader.readLine())!=null);
+      } while ((line = reader.readLine()) != null);
       monkeys.add(new Monkey(monkeyBundle));
     }
 
-    IntStream.range(0,20).forEach(i->monkeys.forEach(Monkey::inspectAndThrow));
-    Optional<Integer> answer = monkeys.stream().map(  Monkey::getThrowCounter).sorted((a, b) -> b - a)
-        .limit(2).reduce((a, b) -> a * b);
-    var list = monkeys.stream().map(  Monkey::getThrowCounter).sorted((a, b) -> b - a).toList();
+    final BigInteger stressDivisor = monkeys.stream().map(monkey -> monkey.testDivisor)
+        .reduce(BigInteger.ONE, BigInteger::multiply);
+    monkeys.forEach(monkey -> monkey.stressDivisor=stressDivisor);
 
-    System.out.println("Part 1: " + answer.get());
+    IntStream.range(0, 10000).peek(i -> System.out.println("###### Round " + i))
+        .peek(i -> IntStream.range(0, monkeys.size())
+            .forEach(j -> System.out.println("Monkey " + j + ": " + monkeys.get(j).items.stream().map(item -> item.currentValue).toList())))
+        .forEach(i -> monkeys.forEach(Monkey::inspectAndThrow));
+
+    IntStream.range(0, monkeys.size()).forEach(i -> System.out.println(
+        "Monkey " + i + " inspected items " + monkeys.get(i).throwCounter + " times"));
+
+    Optional<BigInteger> answer = monkeys.stream().map(Monkey::getThrowCounter).sorted((a, b) -> b - a)
+        .map(BigInteger::valueOf)
+        .limit(2).reduce(BigInteger::multiply);
+    System.out.println("Part 2: " + answer.get());
   }
 
   private static class Monkey {
 
-    private final LinkedList<Long> items;
-    private final UnaryOperator<Long> operation;
-    private final Predicate<Long> test;
+    private final LinkedList<Item> items;
+    private final UnaryOperator<BigInteger> operation;
+    private final Predicate<BigInteger> test;
+    private BigInteger testDivisor;
+    private BigInteger stressDivisor;
     private final HashMap<Boolean, Integer> otherMonkeysIds = new HashMap<>();
     private int throwCounter = 0;
 
@@ -62,27 +75,27 @@ public class Day11MonkeyInTheMiddle {
       extractOtherMonkeysIds(input.get(4), input.get(5));
     }
 
-    private LinkedList<Long> extractItems(final String line) {
-      return Arrays.stream(line.split(": ")[1].split(", ")).map(Long::valueOf).collect(LinkedList::new, LinkedList::add, LinkedList::addAll);
+    private LinkedList<Item> extractItems(final String line) {
+      return Arrays.stream(line.split(": ")[1].split(", ")).map(Item::new)
+          .collect(LinkedList::new, LinkedList::add, LinkedList::addAll);
     }
 
-    private UnaryOperator<Long> extractOperation(final String line) {
+    private UnaryOperator<BigInteger> extractOperation(final String line) {
       String[] functionAsArray = line.split(" = ")[1].split(" ");
       return i -> {
-        long a = functionAsArray[0].equals("old") ? i : Long.parseLong(functionAsArray[0]);
-        long b = functionAsArray[2].equals("old") ? i : Long.parseLong(functionAsArray[2]);
+        BigInteger a = functionAsArray[0].equals("old") ? i : new BigInteger(functionAsArray[0]);
+        BigInteger b = functionAsArray[2].equals("old") ? i : new BigInteger(functionAsArray[2]);
         return switch (functionAsArray[1]) {
-          case "*" -> a * b;
-          case "/" -> a / b;
-          case "+" -> a + b;
-          case "-" -> a - b;
+          case "*" ->  a.multiply(b);
+          case "+" -> a.add(b);
           default -> throw new RuntimeException();
         };
       };
     }
 
-    private Predicate<Long> extractTest(final String line) {
-      return x -> (x % Integer.parseInt(line.split(" by ")[1])) == 0;
+    private Predicate<BigInteger> extractTest(final String line) {
+      this.testDivisor = new BigInteger(line.split(" by ")[1]);
+      return x -> (x.mod(testDivisor)).equals(BigInteger.ZERO);
     }
 
     private void extractOtherMonkeysIds(final String lineTrue, final String lineFalse) {
@@ -103,12 +116,24 @@ public class Day11MonkeyInTheMiddle {
 
     public void inspectAndThrow() {
       while (!items.isEmpty()) {
-        final var item = operation.apply(items.poll())/3;
-        final var index = otherMonkeysIds.get(test.test(item));
+        var item = items.poll();
+        item.currentValue = operation.apply(item.currentValue).mod(stressDivisor);
+        final var index = otherMonkeysIds.get(test.test(item.currentValue));
         monkeys.get(index).items.add(item);
         throwCounter++;
       }
     }
+
+    private static class Item {
+
+      private final BigInteger originalValue;
+      private BigInteger currentValue;
+      public Item(final String originalValue) {
+        this.originalValue = new BigInteger(originalValue);
+        this.currentValue = new BigInteger(originalValue);
+      }
+    }
   }
 }
+
 
