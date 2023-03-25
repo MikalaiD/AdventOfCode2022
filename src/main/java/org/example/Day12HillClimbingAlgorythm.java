@@ -10,12 +10,16 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 public class Day12HillClimbingAlgorythm {
+
+  private static AtomicInteger minLength = new AtomicInteger(Integer.MAX_VALUE);
 
   public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -34,16 +38,16 @@ public class Day12HillClimbingAlgorythm {
     for (int i = 0; i < matrix.size(); i++) {
       for (int j = 0; j < matrix.get(i).size(); j++) {
         final var point = matrix.get(i).get(j);
-        if (i > 0) {
+        if (i > 0 && (matrix.get(i - 1).get(j).val-point.val<=1 || point.val=='S')) {
           point.adjacentPoints.add(matrix.get(i - 1).get(j));
         }
-        if (i < matrix.size() - 1) {
+        if (i < matrix.size() - 1 && (matrix.get(i + 1).get(j).val-point.val<=1|| point.val=='S')) {
           point.adjacentPoints.add(matrix.get(i + 1).get(j));
         }
-        if (j > 0) {
+        if (j > 0 && (matrix.get(i).get(j - 1).val-point.val<=1 || point.val=='S')) {
           point.adjacentPoints.add(matrix.get(i).get(j - 1));
         }
-        if (j < matrix.get(i).size() - 1) {
+        if (j < matrix.get(i).size() - 1 && (matrix.get(i).get(j + 1).val-point.val<=1 || point.val=='S')) {
           point.adjacentPoints.add(matrix.get(i).get(j + 1));
         }
       }
@@ -58,11 +62,12 @@ public class Day12HillClimbingAlgorythm {
 
     Thread.sleep(10000);
 
-    System.out.println("the end");
+    System.out.println("Time is over");
+    System.out.println("Answer: " + pathways.stream().sorted().findFirst().orElseThrow().pathPoints.size());
 
   }
 
-  private static class PointWithValue extends Point {
+  private static class PointWithValue extends Point  {
 
     private final char val;
     private final List<PointWithValue> adjacentPoints;
@@ -78,7 +83,7 @@ public class Day12HillClimbingAlgorythm {
     }
   }
 
-  private static class Pathway {
+  private static class Pathway implements Comparable<Pathway> {
 
     private final Set<PointWithValue> pathPoints;
     private final PointWithValue start;
@@ -89,41 +94,41 @@ public class Day12HillClimbingAlgorythm {
     }
 
     public Pathway(final PointWithValue start) {
-      pathPoints = new LinkedHashSet<>();
+      pathPoints = new CopyOnWriteArraySet<>();
       pathPoints.add(start);
       this.start = start;
     }
 
     private Pathway(final Set<PointWithValue> pathPoints, PointWithValue start) {
-      this.pathPoints = new LinkedHashSet<>(pathPoints);
+      this.pathPoints = new CopyOnWriteArraySet<>(pathPoints);
       this.pathPoints.add(start);
       this.start = start;
     }
 
     public Flux<Pathway> move() {
-      return Flux.fromIterable(start.getAdjacentPoints())
-          .log()
-          .filter(point -> start.val=='S' || point.val - 1 <= start.val)
-          .log()
+      return Flux.fromIterable(start.getAdjacentPoints()).publishOn(Schedulers.parallel())
           .filter(point -> !pathPoints.contains(point))
-          .log()
           .flatMap(point -> {
             if(point.val=='E' && start.adjacentPoints.stream().allMatch(p->p.val<start.val)){
               this.successful=true;
-              pathPoints.add(point);
+
               return Mono.fromCallable(()->this).flux();
             }
             Pathway pathway = new Pathway(pathPoints, point);
-            System.out.println(pathway);
-            return pathway.move().publishOn(Schedulers.parallel());
+            return pathway.move();
           })
-          .doOnError(e -> System.out.println("Error"));
+          .doOnError(throwable -> System.out.println("Error!"));
     }
 
     @Override
     public String toString() {
       return "The path is " + pathPoints.stream().map(p -> "[x:" + p.x + "][y:" + p.y + "]")
           .collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public int compareTo(Pathway o) {
+      return this.pathPoints.size()-o.pathPoints.size();
     }
   }
 
