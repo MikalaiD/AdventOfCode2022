@@ -4,11 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="928b9629-0dcc-44bb-82ab-59403b06adb1" name="Changes" comment="day 3">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Day04CampCleanup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/04_input" afterDir="false" />
+    <list default="true" id="928b9629-0dcc-44bb-82ab-59403b06adb1" name="Changes" comment="old">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day12HillClimbingAlgorythm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/algo/spoj/dynamic/ACODE.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day01CalorieCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day01CalorieCount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day02RockPaperScissors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day02RockPaperScissors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day03RucksackReorganization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day03RucksackReorganization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day04CampCleanup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day04CampCleanup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day05SupplyStacks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day05SupplyStacks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day06TuningTrouble.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day06TuningTrouble.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day07NoSpaceLeftOnDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day07NoSpaceLeftOnDevice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day08TreetopTreeHouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day08TreetopTreeHouse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day09RopeBridge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day09RopeBridge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day10CathodeRayTube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day10CathodeRayTube.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day11MonkeyInTheMiddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day11MonkeyInTheMiddle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Day12HillClimbingAlgorythm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/12_input" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/12_input" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,18 +55,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/dudko/Projects/Advent2022/src/main/resources&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "full.screen.before.presentation.mode": "false",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "C:/Users/dudko/Projects/Advent2022/src/main/resources",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.keymap"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "TEXT"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\dudko\Projects\Advent2022\src\main\resources" />
@@ -59,9 +83,22 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Day04CampCleanup">
-    <configuration name="Day01CalorieCount" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Day01CalorieCount" />
+  <component name="RunManager" selected="Application.ACODE">
+    <configuration name="ACODE" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.algo.spoj.dynamic.ACODE" />
+      <module name="Advent2022.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.algo.spoj.dynamic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day10CathodeRayTube" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Day10CathodeRayTube" />
       <module name="Advent2022.main" />
       <extension name="coverage">
         <pattern>
@@ -73,8 +110,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day02RockPaperScissors" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Day02RockPaperScissors" />
+    <configuration name="Day11MonkeyInTheMiddle" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Day11MonkeyInTheMiddle" />
       <module name="Advent2022.main" />
       <extension name="coverage">
         <pattern>
@@ -86,8 +123,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day03RucksackReorganization" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Day03RucksackReorganization" />
+    <configuration name="Day12HillClimbingAlgorythm" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.Day12HillClimbingAlgorythm" />
       <module name="Advent2022.main" />
       <extension name="coverage">
         <pattern>
@@ -99,8 +136,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Day04CampCleanup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Day04CampCleanup" />
+    <configuration name="tEST" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.tEST" />
       <module name="Advent2022.main" />
       <extension name="coverage">
         <pattern>
@@ -114,10 +151,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Day04CampCleanup" />
-        <item itemvalue="Application.Day03RucksackReorganization" />
-        <item itemvalue="Application.Day02RockPaperScissors" />
-        <item itemvalue="Application.Day01CalorieCount" />
+        <item itemvalue="Application.ACODE" />
+        <item itemvalue="Application.Day12HillClimbingAlgorythm" />
+        <item itemvalue="Application.Day11MonkeyInTheMiddle" />
+        <item itemvalue="Application.Day10CathodeRayTube" />
+        <item itemvalue="Application.tEST" />
       </list>
     </recent_temporary>
   </component>
@@ -144,15 +182,98 @@
       <option name="project" value="LOCAL" />
       <updated>1670069540520</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="day 9 rope moves correctly">
+      <created>1674929984913</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674929984913</updated>
+    </task>
+    <task id="LOCAL-00004" summary="day 9 uses &quot;teleportation&quot; which is not good since the tail is moving in less efficient trajectory in reality">
+      <created>1675100689579</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1675100689579</updated>
+    </task>
+    <task id="LOCAL-00005" summary="day 9">
+      <created>1675544975201</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1675544975201</updated>
+    </task>
+    <task id="LOCAL-00006" summary="day 10 part 2">
+      <created>1676812418739</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1676812418739</updated>
+    </task>
+    <task id="LOCAL-00007" summary="day 11 part 1">
+      <created>1677086144782</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1677086144782</updated>
+    </task>
+    <task id="LOCAL-00008" summary="day 11 part 2">
+      <created>1678219115182</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1678219115182</updated>
+    </task>
+    <task id="LOCAL-00009" summary="looks working">
+      <created>1679756430920</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1679756430920</updated>
+    </task>
+    <task id="LOCAL-00010" summary="looks working">
+      <created>1679768332604</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1679768332604</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -161,6 +282,85 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial" />
     <MESSAGE value="day 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="day 3" />
+    <MESSAGE value="day 9 rope moves correctly" />
+    <MESSAGE value="day 9 uses &quot;teleportation&quot; which is not good since the tail is moving in less efficient trajectory in reality" />
+    <MESSAGE value="day 9" />
+    <MESSAGE value="day 10 part 1" />
+    <MESSAGE value="day 10 part 2" />
+    <MESSAGE value="day 11 part 1" />
+    <MESSAGE value="day 11 part 2" />
+    <MESSAGE value="ok" />
+    <MESSAGE value="looks working" />
+    <MESSAGE value="old" />
+    <option name="LAST_COMMIT_MESSAGE" value="old" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="java-line">
+          <condition expression="move.equals(&quot;L 8&quot;)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day09RopeBridge.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="tick==199" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day10CathodeRayTube.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day11MonkeyInTheMiddle.java</url>
+          <line>51</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day11MonkeyInTheMiddle.java</url>
+          <line>46</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day12HillClimbingAlgorythm.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/algo/advent/2022/Day12HillClimbingAlgorythm.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/algo/spoj/dynamic/ACODE.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="120" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/algo/spoj/dynamic/ACODE.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="121" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Advent2022$Day12HillClimbingAlgorythm.ic" NAME="Day12HillClimbingAlgorythm Coverage Results" MODIFIED="1679253631914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="regexState">
+    <option name="map">
+      <map>
+        <entry key="flags" value="0" />
+        <entry key="mode" value="0" />
+        <entry key="regex" value="\ [\*\+-/] " />
+        <entry key="text" value="old + 631" />
+      </map>
+    </option>
   </component>
 </project>
