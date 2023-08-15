@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ACODE {
-  private final static  Map<String, Long> memo = new HashMap<>();
+  private static  Map<String, Long> memo = new HashMap<>();
   public static void main(String[] args) throws java.lang.Exception {
     Scanner scanner = new Scanner(System.in);
     while (scanner.hasNext()){
@@ -33,11 +33,15 @@ public class ACODE {
       return 1;
     }
     if(str.length()==2){
-      var val = Long.parseLong(str) > 26 ? 1L : 2L;
+      var val = Long.parseLong(str) > 26 || Long.parseLong(str)==10 ? 1L : 2L;
       memo.put(str, val);
       return val;
     }
-    if(Long.parseLong(str.substring(0,2))>26){
+    if(Long.parseLong(str.substring(0,2))==10){
+      long subVal = traverse(list, offset+2);
+      memo.put(str, subVal);
+      return subVal;
+    } else if(Long.parseLong(str.substring(0,2))>26){
       long subVal = traverse(list, offset+1);
       memo.put(str, subVal);
       return subVal;
