@@ -101,4 +101,16 @@ class ACODETest {
     //then
     assertEquals(1, output);
   }
+
+  @Test
+  void traverseEdgeCase() {
+    //given
+    var list = List.of(3,1,2,0,1,0,1);
+
+    //when
+    long output = ACODE.traverse(list);
+
+    //then
+    assertEquals(1, output);
+  }
 }

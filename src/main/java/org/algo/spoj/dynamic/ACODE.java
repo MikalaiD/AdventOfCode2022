@@ -27,12 +27,13 @@ public class ACODE {
     long output = 1L;
     int j = 0;
     for (int i = 0; i < list.size();) {
-      if (i == list.size() - 1 || getEncoded(list, i) > 26 || getEncoded(list, i) == 10) {
-        output *= getOrCalculatePermutations(i - j + 1);
-        if (i != list.size() - 1 && getEncoded(list, i) == 10) {
+      if (i == list.size() - 1 || getEncoded(list, i) > 26 || getEncoded(list, i) == 10 || getEncoded(list, i) == 20) {
+        if (i != list.size() - 1 && (getEncoded(list, i) == 10 || getEncoded(list, i)==20)) {
+          output *= getOrCalculatePermutations(i - j);
           j = i + 2;
           i++;
         } else {
+          output *= getOrCalculatePermutations(i - j + 1);
           j = i + 1;
         }
       }
