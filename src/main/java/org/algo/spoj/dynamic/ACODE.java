@@ -8,27 +8,36 @@ import java.util.stream.Stream;
 
 public class ACODE {
 
-  final static HashMap<Integer, Long> memo = new HashMap<>();
+  static HashMap<Integer, Long> memo = new HashMap<>();
 
   public static void main(String[] args) throws java.lang.Exception {
     Scanner scanner = new Scanner(System.in);
     while (scanner.hasNext()) {
+      memo = new HashMap<>();
+      long output = 0L;
       List<Integer> list = Stream.of(scanner.nextLine().split("")).map(Integer::parseInt)
           .collect(Collectors.toList());
-      if (list.get(0).equals("0")) {
+      if (list.get(0)==0) {
         break;
       }
-      long output = traverse(list);
-      System.out.println(output);
+      try{
+        output = traverse(list);
+      } catch (RuntimeException e){
+
+      }
+      finally {
+        System.out.println(output);
+      }
     }
   }
 
   public static long traverse(List<Integer> list) {
     long output = 1L;
     int j = 0;
-    for (int i = 0; i < list.size();) {
-      if (i == list.size() - 1 || getEncoded(list, i) > 26 || getEncoded(list, i) == 10 || getEncoded(list, i) == 20) {
-        if (i != list.size() - 1 && (getEncoded(list, i) == 10 || getEncoded(list, i)==20)) {
+    for (int i = 0; i < list.size(); ) {
+      if (i == list.size() - 1 || getEncoded(list, i) > 26 || getEncoded(list, i) == 10
+          || getEncoded(list, i) == 20) {
+        if (i != list.size() - 1 && (getEncoded(list, i) == 10 || getEncoded(list, i) == 20)) {
           output *= getOrCalculatePermutations(i - j);
           j = i + 2;
           i++;
@@ -43,7 +52,12 @@ public class ACODE {
   }
 
   private static int getEncoded(List<Integer> list, int i) {
-    return list.get(i) * 10 + list.get(i + 1);
+
+    int encoded = list.get(i) * 10 + list.get(i + 1);
+    if (encoded <10 || (encoded>20 && encoded%10==0)) {
+      throw new RuntimeException("Invalid input");
+    }
+    return encoded;
   }
 
   private static long getOrCalculatePermutations(int size) {

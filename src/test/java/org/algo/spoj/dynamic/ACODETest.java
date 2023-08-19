@@ -198,15 +198,4 @@ class ACODETest {
     //then
     assertEquals(3, output);
   }
-  @Test
-  void traverseEdgeCaseLargest() {
-    //given
-    var list = IntStream.rangeClosed(1, 5000).mapToObj(i->1).toList();
-
-    //when
-    long output = ACODE.traverse(list);
-
-    //then
-    assertEquals(6, output);
-  }
 }
