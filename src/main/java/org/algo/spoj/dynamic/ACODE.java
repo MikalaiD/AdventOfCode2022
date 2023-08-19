@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public class ACODE {
 
-  static HashMap<Integer, Long> memo = new HashMap<>();
+  final static HashMap<Integer, Long> memo = new HashMap<>();
 
   public static void main(String[] args) throws java.lang.Exception {
     Scanner scanner = new Scanner(System.in);
@@ -20,7 +20,7 @@ public class ACODE {
         break;
       }
       try{
-        output = traverse(list);
+        output = solve(list);
       } catch (RuntimeException e){
 
       }
@@ -30,9 +30,9 @@ public class ACODE {
     }
   }
 
-  public static long traverse(List<Integer> list) {
-    long output = 1L;
-    int j = 0;
+  public static long solve(List<Integer> list) {
+    var output = 1L;
+    var j = 0;
     for (int i = 0; i < list.size(); ) {
       if (i == list.size() - 1 || getEncoded(list, i) > 26 || getEncoded(list, i) == 10
           || getEncoded(list, i) == 20) {
