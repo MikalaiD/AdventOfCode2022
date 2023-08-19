@@ -13,7 +13,6 @@ public class ACODE {
   public static void main(String[] args) throws java.lang.Exception {
     Scanner scanner = new Scanner(System.in);
     while (scanner.hasNext()) {
-      memo = new HashMap<>();
       long output = 0L;
       List<Integer> list = Stream.of(scanner.nextLine().split("")).map(Integer::parseInt)
           .collect(Collectors.toList());
