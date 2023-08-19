@@ -15,7 +15,7 @@ public class ACODE {
     while (scanner.hasNext()) {
       List<Integer> list = Stream.of(scanner.nextLine().split("")).map(Integer::parseInt)
           .collect(Collectors.toList());
-      if (list.size() == 1 && list.get(0).equals("0")) {
+      if (list.get(0).equals("0")) {
         break;
       }
       long output = traverse(list);
