@@ -12,9 +12,7 @@ class AIBOHPTest {
   @ParameterizedTest
   @MethodSource("provideScenarios")
   void noChangeNeeded(String input, int expected){
-    AIBOHP.minLength = input.length()*2;
-    int actual = AIBOHP.solve(input, 0, input.length() - 1, 0);
-
+    int actual = AIBOHP.solve(input, 0, input.length() - 1);
     assertEquals(expected, actual);
   }
 
