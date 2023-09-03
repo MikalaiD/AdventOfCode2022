@@ -12,10 +12,8 @@ class AIBOHPTest {
   @ParameterizedTest
   @MethodSource("provideScenarios")
   void noChangeNeeded(String input, int expected){
-    StringBuilder sb = new StringBuilder(input);
     AIBOHP.minLength = input.length()*2;
-    AIBOHP.solve(sb, 0);
-    int actual = AIBOHP.minLength - input.length();
+    int actual = AIBOHP.solve(input, 0, input.length() - 1, 0);
 
     assertEquals(expected, actual);
   }
@@ -27,7 +25,7 @@ class AIBOHPTest {
         Arguments.of("aa", 0),
         Arguments.of("aab", 1),
         Arguments.of("ababbac", 2),
-        Arguments.of("ababbacbbacabbaababbabbaabacbcabvbababbccabbaccabbccbebaaaaababbababababababababbabababaabababbabbababbabjhsdbababbabbabbssjhbbbababsjdasjjjasdjajjjabbakhskahskhadkahsdkjhaskdhakjdhaskjhdkashdkashdkashdkashdaskhda", 18)
+        Arguments.of("ababbacbbacabbaababbabbaabacbcabvbababbccabbaccabbccbebaaaaababbababababababababbabababaabababbabbababbabjhsdbababbabbabbssjhbbbababsjdasjjjasdjajjjabbakhskahskhadkahsdkjhaskdhakjdhaskjhdkashdkashdkashdkashdaskhda", 109)
     );
   }
 }
