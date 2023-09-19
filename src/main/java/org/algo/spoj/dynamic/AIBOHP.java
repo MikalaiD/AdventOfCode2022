@@ -1,73 +1,80 @@
 package org.algo.spoj.dynamic;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
 public class AIBOHP {
 
-  static Map<String, Integer> memo = new HashMap<>();
+  static Map<Point, Integer> memoPoint = new HashMap<>();
 
   public static void main(String[] args) throws java.lang.Exception {
     Scanner in = new Scanner(System.in);
     var cases = in.nextInt();
     while (in.hasNext() && cases != 0) {
       final var input = in.nextLine();
+      memoPoint=new HashMap<>();
       if (input.isEmpty()) continue;
-      int output = solve2(input);
+      int output = solvePoint(input);
       System.out.println(output);
       cases--;
     }
   }
-  //stack overflow here with 6000 letters if used purely
-  public static int solve(final String input, final int offsetLeft, final int offsetRight) {
-    if ((offsetRight == offsetLeft)) {
+  public static int solveWithPointersRecursively(final String input, final EdgesPointer pointer) {
+    if (pointer.isSame()) {
       return 0;
     }
-    var leftChar = input.charAt(offsetLeft);
-    var rightChar = input.charAt(offsetRight);
-    if (offsetRight - offsetLeft == 1 ) {
-      return  leftChar == rightChar ? 0 : 1;
+    if (memoPoint.containsKey(pointer)) {
+      return memoPoint.get(pointer);
     }
-    final var key = input.substring(offsetLeft, offsetRight + 1);
-//    final var key = normalise(input.substring(offsetLeft, offsetRight + 1));
-    if (memo.containsKey(key)) {
-      return memo.get(key);
+    var leftChar = input.charAt(pointer.x);
+    var rightChar = input.charAt(pointer.y);
+    if (pointer.isAdjacent()) {
+      int value = leftChar == rightChar ? 0 : 1;
+      memoPoint.put(pointer, value);
+      return value;
     }
     if (leftChar == rightChar) {
-      return solve(input, offsetLeft + 1, offsetRight - 1);
+      return solveWithPointersRecursively(input, pointer.subEdgeSymmetric());
     } else {
-      memo.put(
-          key,
-          Math.min(
-                  solve(input, offsetLeft + 1, offsetRight),
-                  solve(input, offsetLeft, offsetRight - 1))
-              + 1);
-      return memo.get(key);
+      int leftSubstringResult = solveWithPointersRecursively(input, pointer.subEdgeSkewedLeft());
+      int rightSubstringResult = solveWithPointersRecursively(input, pointer.subEdgeSkewedRight());
+      int value = Math.min(leftSubstringResult, rightSubstringResult) + 1;
+      memoPoint.put(pointer, value);
+      return value;
     }
   }
 
-  public static int solve2(final String input){
-    for(int i = 1; i<=input.length(); i++){
-      var key = input.substring(0, i);
-      var value = solve(key, 0, key.length()-1);
-      memo.put(key, value);
+  public static int solvePoint(final String input){
+    for(int i = 1; i<input.length(); i++){
+      var keyPoint = new EdgesPointer(0, i);
+      var value = solveWithPointersRecursively(input, keyPoint);
+      memoPoint.put(keyPoint, value);
     }
-    return memo.get(input);
+    return memoPoint.get(new Point(0,input.length()-1));
   }
 
-  private static String normalise(final String input) {
-    var normalizedLetter = 'a';
-    var output = new StringBuilder();
-    Map<Character, Character> normalisationMap = new HashMap<>();
-    for (int i = 0; i < input.length(); i++) {
-      char oldLetter = input.charAt(i);
-      if(!normalisationMap.containsKey(oldLetter)){
-        normalisationMap.put(oldLetter,normalizedLetter);
-        normalizedLetter++;
-      }
-      output.append(normalisationMap.get(input.charAt(i)));
+  private static class EdgesPointer extends Point {
+
+    public EdgesPointer(int x, int y) {
+      super(x, y);
     }
-    return output.toString();
+
+    protected EdgesPointer subEdgeSymmetric(){
+      return new EdgesPointer(this.x+1, this.y-1);
+    }
+    protected EdgesPointer subEdgeSkewedLeft(){
+      return new EdgesPointer(this.x, this.y-1);
+    }
+    protected EdgesPointer subEdgeSkewedRight(){
+      return new EdgesPointer(this.x+1, this.y);
+    }
+
+    protected boolean isSame(){
+      return this.x==this.y;
+    }
+    protected boolean isAdjacent(){
+      return this.y-this.x==1;
+    }
   }
 }
