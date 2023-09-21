@@ -1,12 +1,10 @@
 package org.algo.spoj.dynamic;
-
-import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 public class AIBOHP {
 
-  static Map<Point, Integer> memoPoint = new HashMap<>();
+  static Map<EdgesPointer, Integer> memoPoint = new HashMap<>();
 
   public static void main(String[] args) throws java.lang.Exception {
     Scanner in = new Scanner(System.in);
@@ -51,13 +49,16 @@ public class AIBOHP {
       var value = solveWithPointersRecursively(input, keyPoint);
       memoPoint.put(keyPoint, value);
     }
-    return memoPoint.get(new Point(0,input.length()-1));
+    return memoPoint.get(new EdgesPointer(0,input.length()-1));
   }
 
-  private static class EdgesPointer extends Point {
+  private static class EdgesPointer {
+    private final int x;
+    private final int y;
 
     public EdgesPointer(int x, int y) {
-      super(x, y);
+      this.x=x;
+      this.y=y;
     }
 
     protected EdgesPointer subEdgeSymmetric(){
@@ -75,6 +76,32 @@ public class AIBOHP {
     }
     protected boolean isAdjacent(){
       return this.y-this.x==1;
+    }
+
+    @Override
+    public String toString() {
+      return "X: " +this.x + " Y: " + this.y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o)
+        return true;
+      if (o == null || getClass() != o.getClass())
+        return false;
+
+      EdgesPointer that = (EdgesPointer) o;
+
+      if (x != that.x)
+        return false;
+      return y == that.y;
+    }
+
+    @Override
+    public int hashCode() {
+      int result = x;
+      result = 31 * result + y;
+      return result;
     }
   }
 }
