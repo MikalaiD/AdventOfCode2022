@@ -13,12 +13,32 @@ public class AIBOHP {
       final var input = in.nextLine();
       memoPoint=new HashMap<>();
       if (input.isEmpty()) continue;
-      int output = solvePoint(input);
+      int output = solveEffectiveOn2(input);
       System.out.println(output);
       cases--;
     }
   }
-  public static int solvePoint(final String input){
+
+  public static int solveEffectiveOn2(final String input) {
+    var n = input.length();
+    var memo = new int[n][n];
+    for (int len = 2; len <= n; len++) {
+      for (int i = 0; i <= n - len; i++) {
+        int j = i + len - 1;
+        char leftChar = input.charAt(i);
+        char rightChar = input.charAt(j);
+        if (leftChar == rightChar && len == 2) {
+          memo[i][j] = 0;
+        } else if (leftChar == rightChar) {
+          memo[i][j] = memo[i + 1][j - 1];
+        } else {
+          memo[i][j] = Math.min(memo[i + 1][j], memo[i][j - 1])+1;
+        }
+      }
+    }
+    return memo[0][input.length()-1];
+  }
+  public static int solveIneffectiveOn2(final String input){
     for(int i = 1; i<input.length(); i++){
       var keyPoint = new EdgesPointer(0, i);
       var value = solveWithPointersRecursively(input, keyPoint);
