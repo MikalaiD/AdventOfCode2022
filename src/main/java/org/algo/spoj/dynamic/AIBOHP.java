@@ -18,8 +18,17 @@ public class AIBOHP {
       cases--;
     }
   }
+  public static int solvePoint(final String input){
+    for(int i = 1; i<input.length(); i++){
+      var keyPoint = new EdgesPointer(0, i);
+      var value = solveWithPointersRecursively(input, keyPoint);
+      memoPoint.put(keyPoint, value);
+    }
+    return memoPoint.get(new EdgesPointer(0,input.length()-1));
+  }
+
   private static int solveWithPointersRecursively(final String input, final EdgesPointer pointer) {
-    if (pointer.isSame()) {
+    if (isAlreadyPolyndrome(input, pointer)) {
       return 0;
     }
     if (memoPoint.containsKey(pointer)) {
@@ -43,13 +52,13 @@ public class AIBOHP {
     }
   }
 
-  public static int solvePoint(final String input){
-    for(int i = 1; i<input.length(); i++){
-      var keyPoint = new EdgesPointer(0, i);
-      var value = solveWithPointersRecursively(input, keyPoint);
-      memoPoint.put(keyPoint, value);
+  private static boolean isAlreadyPolyndrome(String input, EdgesPointer pointer) {
+    for(int i = 0; i<=(pointer.y-pointer.x)/2; i++){
+      if (input.charAt(pointer.x+i)!=input.charAt(pointer.y-i)){
+        return false;
+      }
     }
-    return memoPoint.get(new EdgesPointer(0,input.length()-1));
+    return true;
   }
 
   private static class EdgesPointer {
