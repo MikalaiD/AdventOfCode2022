@@ -18,7 +18,7 @@ public class AIBOHP {
       cases--;
     }
   }
-  public static int solveWithPointersRecursively(final String input, final EdgesPointer pointer) {
+  private static int solveWithPointersRecursively(final String input, final EdgesPointer pointer) {
     if (pointer.isSame()) {
       return 0;
     }
@@ -35,8 +35,8 @@ public class AIBOHP {
     if (leftChar == rightChar) {
       return solveWithPointersRecursively(input, pointer.subEdgeSymmetric());
     } else {
-      int leftSubstringResult = solveWithPointersRecursively(input, pointer.subEdgeSkewedLeft());
       int rightSubstringResult = solveWithPointersRecursively(input, pointer.subEdgeSkewedRight());
+      int leftSubstringResult = solveWithPointersRecursively(input, pointer.subEdgeSkewedLeft());
       int value = Math.min(leftSubstringResult, rightSubstringResult) + 1;
       memoPoint.put(pointer, value);
       return value;
