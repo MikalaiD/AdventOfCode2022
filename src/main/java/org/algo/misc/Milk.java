@@ -1,23 +1,29 @@
 package org.algo.misc;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Milk {
+  AtomicInteger it = new AtomicInteger(0);
+
   int solve(int[][] matrix, long limit) {
     final var memo = convertToSmallRectangulars(matrix);
-    for (Entry<Rectangular, Rectangular> entry : memo.entrySet()) {
-      synchronized (memo) {
-        checkAndAddAtRight(memo, entry.getValue());
-        checkAndAddAtBottom(memo, entry.getValue());
-      }
+    final var list = new CopyOnWriteArrayList<>(memo.keySet());
+    for (int i = 0; i < list.size(); i++) {
+      System.out.println("it" + it.getAndIncrement());
+      checkAndAddAtRight(memo, list.get(i), list);
+      checkAndAddAtBottom(memo, list.get(i), list);
     }
     return (int) memo.entrySet().stream().filter(rec -> rec.getValue().getValue() <= limit).count();
   }
 
   private void checkAndAddAtBottom(
-      final Map<Rectangular, Rectangular> memo, final Rectangular rec) {
+      final Map<Rectangular, Rectangular> memo,
+      final Rectangular rec,
+      final List<Rectangular> list) {
     Rectangular deltaRectangular = rec.deltaDown();
     var rectangularWithValue = memo.getOrDefault(deltaRectangular, null);
     if (rectangularWithValue == null) {
@@ -25,10 +31,14 @@ public class Milk {
     }
     long value = rectangularWithValue.getValue();
     Rectangular largerRectangular = rec.extendDown(value);
-    memo.put(largerRectangular, largerRectangular);
+    memo.compute(largerRectangular, (k, v) -> k);
+    list.add(largerRectangular);
   }
 
-  private void checkAndAddAtRight(final Map<Rectangular, Rectangular> memo, final Rectangular rec) {
+  private void checkAndAddAtRight(
+      final Map<Rectangular, Rectangular> memo,
+      final Rectangular rec,
+      final List<Rectangular> list) {
     Rectangular deltaRectangular = rec.deltaRight();
     var rectangularWithValue = memo.getOrDefault(deltaRectangular, null);
     if (rectangularWithValue == null) {
@@ -36,7 +46,8 @@ public class Milk {
     }
     long value = rectangularWithValue.getValue();
     Rectangular largerRectangular = rec.extendRight(value);
-    memo.put(largerRectangular, largerRectangular);
+    memo.compute(largerRectangular, (k, v) -> k);
+    list.add(largerRectangular);
   }
 
   private static Map<Rectangular, Rectangular> convertToSmallRectangulars(final int[][] matrix) {
