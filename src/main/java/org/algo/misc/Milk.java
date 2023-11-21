@@ -1,62 +1,77 @@
 package org.algo.misc;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Milk {
-  AtomicInteger it = new AtomicInteger(0);
+  static long output = 0;
+  static long it = 0;
 
-  int solve(int[][] matrix, long limit) {
-    final var memo = convertToSmallRectangulars(matrix);
-    final var list = new CopyOnWriteArrayList<>(memo.keySet());
-    for (int i = 0; i < list.size(); i++) {
-      System.out.println("it" + it.getAndIncrement());
-      checkAndAddAtRight(memo, list.get(i), list);
-      checkAndAddAtBottom(memo, list.get(i), list);
+  static long solve(int[][] matrix, long limit) {
+    final var memo = convertToSmallRectangulars(matrix, limit);
+    output += memo.size();
+    var queue = new ConcurrentLinkedQueue<>(memo.keySet());
+    while (!queue.isEmpty()) {
+      //      System.out.println("iteration "+it++);
+      Rectangular next = queue.remove();
+      checkAndAddAtRight(memo, next, queue, limit);
+      checkAndAddAtBottom(memo, next, queue, limit);
     }
-    return (int) memo.entrySet().stream().filter(rec -> rec.getValue().getValue() <= limit).count();
+    return output;
   }
 
-  private void checkAndAddAtBottom(
-      final Map<Rectangular, Rectangular> memo,
+  private static void checkAndAddAtBottom(
+      final Map<Rectangular, Long> memo,
       final Rectangular rec,
-      final List<Rectangular> list) {
+      final ConcurrentLinkedQueue<Rectangular> queue,
+      final long limit) {
     Rectangular deltaRectangular = rec.deltaDown();
-    var rectangularWithValue = memo.getOrDefault(deltaRectangular, null);
-    if (rectangularWithValue == null) {
+    var value = memo.getOrDefault(deltaRectangular, null);
+    if (value == null) {
       return;
     }
-    long value = rectangularWithValue.getValue();
     Rectangular largerRectangular = rec.extendDown(value);
-    memo.compute(largerRectangular, (k, v) -> k);
-    list.add(largerRectangular);
-  }
-
-  private void checkAndAddAtRight(
-      final Map<Rectangular, Rectangular> memo,
-      final Rectangular rec,
-      final List<Rectangular> list) {
-    Rectangular deltaRectangular = rec.deltaRight();
-    var rectangularWithValue = memo.getOrDefault(deltaRectangular, null);
-    if (rectangularWithValue == null) {
+    if (memo.containsKey(largerRectangular) || largerRectangular.getValue() > limit) {
       return;
     }
-    long value = rectangularWithValue.getValue();
-    Rectangular largerRectangular = rec.extendRight(value);
-    memo.compute(largerRectangular, (k, v) -> k);
-    list.add(largerRectangular);
+    output++;
+    memo.put(largerRectangular, largerRectangular.getValue());
+    //    memo.remove(rec);
+    queue.add(largerRectangular);
   }
 
-  private static Map<Rectangular, Rectangular> convertToSmallRectangulars(final int[][] matrix) {
-    Map<Rectangular, Rectangular> memo = new ConcurrentHashMap<>();
+  private static void checkAndAddAtRight(
+      final Map<Rectangular, Long> memo,
+      final Rectangular rec,
+      final ConcurrentLinkedQueue<Rectangular> queue,
+      final long limit) {
+    Rectangular deltaRectangular = rec.deltaRight();
+    var value = memo.getOrDefault(deltaRectangular, null);
+    if (value == null) {
+      return;
+    }
+    Rectangular largerRectangular = rec.extendRight(value);
+    if (memo.containsKey(largerRectangular) || largerRectangular.getValue() > limit) {
+      return;
+    }
+    output++;
+    memo.put(largerRectangular, largerRectangular.getValue());
+    //    memo.remove(rec);
+    queue.add(largerRectangular);
+  }
+
+  private static Map<Rectangular, Long> convertToSmallRectangulars(
+      final int[][] matrix, long limit) {
+    Map<Rectangular, Long> memo = new HashMap<>();
     for (int i = 0; i < matrix.length; i++) {
       for (int j = 0; j < matrix[i].length; j++) {
-        int value = matrix[i][j];
-        Rectangular rectangular = new Rectangular(j, i, value);
-        memo.put(rectangular, rectangular);
+        long value = matrix[i][j];
+        if (value <= limit) {
+          Rectangular rectangular = new Rectangular(j, i, value);
+          memo.put(rectangular, value);
+        }
       }
     }
     return memo;
@@ -117,10 +132,6 @@ class Rectangular {
     return value;
   }
 
-  void setValue(final long value) {
-    this.value = value;
-  }
-
   Rectangular extendRight(final long value) {
     return new Rectangular(x1, y1, x2 + 1, y2, this.getValue() + value);
   }
@@ -135,6 +146,10 @@ class Rectangular {
 
   Rectangular deltaDown() {
     return new Rectangular(x1, y2 + 1, x2, y2 + 1);
+  }
+
+  boolean isFlat() {
+    return x1 == x2 || y1 == y2;
   }
 
   @Override
