@@ -2,79 +2,59 @@ package org.algo.misc;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+import java.util.Optional;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Milk {
-  static long output = 0;
-  static long it = 0;
-
   static long solve(int[][] matrix, long limit) {
-    final var memo = convertToSmallRectangulars(matrix, limit);
-    output += memo.size();
-    var queue = new ConcurrentLinkedQueue<>(memo.keySet());
-    while (!queue.isEmpty()) {
-      //      System.out.println("iteration "+it++);
-      Rectangular next = queue.remove();
-      checkAndAddAtRight(memo, next, queue, limit);
-      checkAndAddAtBottom(memo, next, queue, limit);
-    }
+    var output = 0;
+    var memo = new HashMap<Rectangular, Rectangular>();
+    output += checkAndPopulateMemoWithColumns(matrix, limit, memo);
+    output += checkRectangularsToTheRight(limit, memo);
     return output;
   }
 
-  private static void checkAndAddAtBottom(
-      final Map<Rectangular, Long> memo,
-      final Rectangular rec,
-      final ConcurrentLinkedQueue<Rectangular> queue,
-      final long limit) {
-    Rectangular deltaRectangular = rec.deltaDown();
-    var value = memo.getOrDefault(deltaRectangular, null);
-    if (value == null) {
-      return;
+  private static long checkRectangularsToTheRight(
+      final long limit, final Map<Rectangular, Rectangular> memo) {
+    var queue = new ConcurrentLinkedQueue<>(memo.keySet());
+    var count = 0;
+    while (!queue.isEmpty()) {
+      var current = queue.remove();
+      var delta = current.deltaRight();
+      count +=
+          Optional.ofNullable(memo.get(delta))
+              .map(current::extendWith)
+              .filter(rectangular -> rectangular.getValue() <= limit)
+              .map(queue::add)
+              .map(rectangular -> 1)
+              .orElse(0);
     }
-    Rectangular largerRectangular = rec.extendDown(value);
-    if (memo.containsKey(largerRectangular) || largerRectangular.getValue() > limit) {
-      return;
-    }
-    output++;
-    memo.put(largerRectangular, largerRectangular.getValue());
-    //    memo.remove(rec);
-    queue.add(largerRectangular);
+    return count;
   }
 
-  private static void checkAndAddAtRight(
-      final Map<Rectangular, Long> memo,
-      final Rectangular rec,
-      final ConcurrentLinkedQueue<Rectangular> queue,
-      final long limit) {
-    Rectangular deltaRectangular = rec.deltaRight();
-    var value = memo.getOrDefault(deltaRectangular, null);
-    if (value == null) {
-      return;
-    }
-    Rectangular largerRectangular = rec.extendRight(value);
-    if (memo.containsKey(largerRectangular) || largerRectangular.getValue() > limit) {
-      return;
-    }
-    output++;
-    memo.put(largerRectangular, largerRectangular.getValue());
-    //    memo.remove(rec);
-    queue.add(largerRectangular);
-  }
-
-  private static Map<Rectangular, Long> convertToSmallRectangulars(
-      final int[][] matrix, long limit) {
-    Map<Rectangular, Long> memo = new HashMap<>();
+  private static long checkAndPopulateMemoWithColumns(
+      final int[][] matrix, final long limit, final Map<Rectangular, Rectangular> memo) {
     for (int i = 0; i < matrix.length; i++) {
       for (int j = 0; j < matrix[i].length; j++) {
         long value = matrix[i][j];
         if (value <= limit) {
           Rectangular rectangular = new Rectangular(j, i, value);
-          memo.put(rectangular, value);
+          memo.put(rectangular, rectangular);
         }
       }
     }
-    return memo;
+    Queue<Rectangular> queue = new ConcurrentLinkedQueue<>(memo.keySet());
+    while (!queue.isEmpty()) {
+      var current = queue.remove();
+      var delta = current.deltaDown();
+      Optional.ofNullable(memo.get(delta))
+          .map(current::extendWith)
+          .filter(rectangular -> rectangular.getValue() <= limit)
+          .map(rectangular -> memo.put(rectangular, rectangular))
+          .ifPresent(queue::add);
+    }
+    return memo.size();
   }
 }
 
@@ -144,12 +124,12 @@ class Rectangular {
     return new Rectangular(x1, y1, x2, y2 + 1, this.getValue() + value);
   }
 
-  Rectangular deltaDown() {
-    return new Rectangular(x1, y2 + 1, x2, y2 + 1);
+  Rectangular extendWith(final Rectangular another) {
+    return new Rectangular(x1, y1, another.x2, another.y2, this.getValue() + another.getValue());
   }
 
-  boolean isFlat() {
-    return x1 == x2 || y1 == y2;
+  Rectangular deltaDown() {
+    return new Rectangular(x1, y2 + 1, x2, y2 + 1);
   }
 
   @Override

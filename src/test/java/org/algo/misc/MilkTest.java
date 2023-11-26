@@ -22,7 +22,7 @@ class MilkTest {
     int[][] matrix = new int[][]{
         {1, 2},
     };
-    assertEquals(3, new Milk().solve(matrix, 7));
+    assertEquals(3, Milk.solve(matrix, 7));
   }
   @Test
   void solve_2_2() {
@@ -30,7 +30,7 @@ class MilkTest {
         {1, 2},
         {3, 1}
     };
-    assertEquals(9, new Milk().solve(matrix, 7));
+    assertEquals(9, Milk.solve(matrix, 7));
   }
   @Test
   void solve_6_4() {
@@ -50,7 +50,7 @@ class MilkTest {
   @Test
   void solve_largest_possible() {
     Instant start = Instant.now();
-    int size = 100;
+    int size = 500;
     int limit = Integer.MAX_VALUE;
     int[][] matrix = IntStream.range(0, size)
         .mapToObj(i -> IntStream.range(0, size).map(j -> (int) (Math.random() * 100)).toArray())
